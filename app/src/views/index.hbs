@@ -21,15 +21,15 @@
             <div class="login-page">
                 <div class="form">
                     <form class="register-form" method="post" action="/users/register">
-                    <input type="text" name="name" placeholder="name"/>
-                    <input type="text" name="email" placeholder="email address"/>
-                    <input type="password" name="password" placeholder="password"/>
+                    <input type="text" name="name" placeholder="name" required/>
+                    <input type="text" name="email" placeholder="email address" required/>
+                    <input type="password" name="password" placeholder="password" required/>
                     <button>create</button>
                     <p class="message">Already registered? <a href="#">Sign In</a></p>
                     </form>
                     <form class="login-form" method="post" action="/users/login">
-                    <input type="text" name="email" placeholder="email"/>
-                    <input type="password" name="password" placeholder="password"/>
+                    <input type="text" name="email" placeholder="email" required/>
+                    <input type="password" name="password" placeholder="password" required/>
                     <button>login</button>
                     <p class="message">Not registered? <a href="#">Create an account</a></p>
                     </form>

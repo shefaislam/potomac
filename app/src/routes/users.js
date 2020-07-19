@@ -56,12 +56,14 @@ router.post('/login', async(req, res) => {
     try {
         const user = await User.findOne({ email: req.body.email, password: req.body.password })
         if (!user) {
-            return res.status(401).json({ msg: 'Wrong Credintials' })
+            console.log('Authentication failed!')
+            return res.redirect('/')
         }
         req.user = user._id
         res.redirect(`/users/home/${req.user}`)
     } catch (error) {
-        res.status(401).send('Authorization Failed!')
+        console.log(error.message)
+        res.redirect('/')
     }
 })
 
