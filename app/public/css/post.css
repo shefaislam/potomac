@@ -1,0 +1,13 @@
+.comments {
+    /* background-color: red; */
+    height: 280px;
+    overflow-y: scroll;
+}
+
+h5 {
+    font-size: 1.3em;
+}
+
+.post_box p {
+    font-size: 1.2em;
+}

@@ -4,7 +4,7 @@ const router = express.Router()
 // Import User model
 const User = require('../models/User')
 
-const Post=  require('../models/Post')
+const Post = require('../models/Post')
 
 // @route       GET /users/register
 // @desc        This will render the register page
@@ -18,35 +18,48 @@ router.get("/login", (req, res) => {
     res.render("login")
 })
 
-// @route       GET /users/home
-//@desc         This will render home page
-// router.get("/home",(req,res) => {
-//     res.render("home")
-// })
+// @route       GET /users/home/:id
+// @desc         This will render home page
+router.get("/home/:id", async(req, res) => {
+    const user_id = req.params.id
+    try {
+        const user = await User.findOne({ _id: req.params.id })
+        if (!user) {
+            return res.redirect('/users/login')
+        }
+        const allPosts = await Post.find({}).sort({ date: -1 })
+        const userPosts = await Post.find({ user: user._id }).sort({ date: -1 })
+            // console.log(allPosts)
+        res.render('home', { allPosts, user, userPosts })
+    } catch (err) {
+        console.log(err)
+        res.redirect('/users/login')
+    }
+})
 
 // @router      POST /users/register
 // @desc        This registers a user
-router.post('/register', async (req, res) => {
+router.post('/register', async(req, res) => {
     try {
         const user = new User(req.body)
         await user.save()
-        res.redirect('/users/login')
+        res.redirect('/')
     } catch (err) {
-        res.status(400).send('Invalid Data')
+        res.redirect('/')
     }
 })
 
 // @router      POST /users/login
 // @desc        This will login an user
-router.post('/login', async (req, res) => {
+router.post('/login', async(req, res) => {
+
     try {
-        const user = await User.findOne({email: req.body.email, password: req.body.password})
-        if(!user) {
-           return res.status(401).json(error.message) 
+        const user = await User.findOne({ email: req.body.email, password: req.body.password })
+        if (!user) {
+            return res.status(401).json({ msg: 'Wrong Credintials' })
         }
-        // Redirecting to a new router
-        const posts = await Post.find({})
-        res.render('home', { posts: posts })
+        req.user = user._id
+        res.redirect(`/users/home/${req.user}`)
     } catch (error) {
         res.status(401).send('Authorization Failed!')
     }
@@ -54,7 +67,7 @@ router.post('/login', async (req, res) => {
 
 // @router         POST /user/home
 // @desc           This will take user to home page
-router.post("/home", async (req,res) => {
+router.post("/home", async(req, res) => {
     const user = new user(req.body)
     try {
         await post.save()

@@ -1,3 +1,68 @@
- body {
-    background-color:  #f2f2f2;
- }
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@700&family=Work+Sans:wght@700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.bodyWrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    background: url(/images/game.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/* .secLeft {
+    height: 100vh;
+    width: 50vw;
+    display: flex;
+    flex-flow: column nowrap;
+    /* justify-content: center; */
+
+
+/* align-items: center; */
+
+
+/*padding: 50px;
+} 
+*/
+
+.secLeft h1 {
+    font-family: 'Rowdies', cursive;
+    font-size: 5em;
+    color: #fafafa;
+}
+
+.secLeft p {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 3em;
+    color: #fafafa;
+}
+
+
+/* .secRight {
+    height: 100vh;
+    width: 50vw;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+} */
+
+
+/*
+.heading {
+    color: white;
+    font-size: 6em;
+}
+
+p {
+    font-size: 4em;
+} */

@@ -9,51 +9,60 @@
         <link rel="stylesheet" href="/css/home.css">
     </head>
     <body>
-        <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-dark primary-color">
-                <a class="navbar-brand" href="#">Potomac</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                    </ul>
+        
+        <div class="container-fluid my-auto">
+            <div class="row">
+                <div class="col-md-4 left-bar">
+                <h3>Game Connect+</h3>
+                <br>
+                <h5 class="mt-4 ">{{user.name}}</h5>
+                <br>
+                <form action="/posts" method="post" id="post_box" class="mb-5">
+                    <div class="form-group">
+                        <input type="hidden" name="user" value="{{user._id}}">
+                        <input type="hidden" name="creator" value="{{user.name}}">
+                        <textarea class="form-control" id="post_text" name="text" rows="5" placeholder="What's on your mind?" required></textarea>
+                    </div>
+                    <button class="btn btn-primary btn-block">Post</button>
+                    <small id="form-warning"></small>
+                </form>
+                <div class="col-md-12 mt-5">
+                    <h5>My Posts</h5>
+                    <div class="own_posts">
+                        <ul>
+                            {{#each userPosts}}
+                                <li>{{this.text}} - <a class="text-danger" href="/posts/delete/{{../user.id}}/{{this._id}}">Delete</a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
                 </div>
-                </nav>
-        </div>
-        <div class="user_wall">
-            <h4>Posts</h4>
-            <div class="posts_box mb-3">
-                {{#each posts}}
-                <div class="single_post">
-                    <h3>{{ this.user }}</h5>
-                    <h5>{{ this.title }}</h5>
-                    <p>{{ this.description }}</p>
-                    {{#each this.comments}}
-                        <div class="comment">
-                            <h5>{{this.owner}}</h5>
-                            <p>{{this.text}}</p>
-                        </div>
-                    {{/each}}
-                </div>
-                {{/each}}
             </div>
+            <div class="col-md-8 content-box">
+                <h1>Post Wall</h1> 
+                <a class="btn btn-primary" href="/users/home/{{user._id}}">Refresh</a>
+                <a class="btn btn-danger" href="/">Logout</a>
+                <div class="row mt-3">
+                    <div class="col-md-12 post-box mt-3">
+                        {{#each allPosts}}
+                        <div class="post">
+                            <p class="name">{{this.creator}}</p>
+                            <p class="post_text">{{this.text}}</p>
+                            <p>{{this.comments.length}} Comments - <a href="/posts/{{../user._id}}/{{this._id}}">View Comments</a></p>
+                            <form action="/posts/comment/{{user._id}}/{{this._id}}/home" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" name="owner" value="{{../user.name}}">
+                                    <input type="text" class="form-control" id="text" name="text" placeholder="Enter Comment Here" required>
+                                </div>
+                                <button class="btn btn-primary">Add Comment</button>
+                            </form>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div> 
+            </div>
+            </div>
+            
         </div>
-
-
 
 <!-- Resources -->
 

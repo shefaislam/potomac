@@ -7,7 +7,7 @@ const Post = require('./models/Post')
 
 const app = express()
 
-const urlencodedParser = bodyParser.urlencoded({extended: false})
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 // Paths
@@ -20,7 +20,7 @@ app.set('views', viewsPath)
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
-  }))
+}))
 app.use(express.static(publicPath))
 
 
@@ -29,8 +29,13 @@ app.use(express.static(publicPath))
 app.use('/users', require('./routes/users'))
 app.use('/posts', require('./routes/posts'))
 
+app.get('/', (req, res) => {
+    res.render('index')
+})
 
-
+app.get('*', (req, res) => {
+    res.redirect('/')
+})
 
 app.listen(3005, () => {
     console.log('Press Ctrl + C to exit.')

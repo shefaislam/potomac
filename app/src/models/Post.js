@@ -1,18 +1,22 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    title: {
+    text: {
         type: String,
         required: true
     },
-    description: {
+    creator: {
         type: String,
         required: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User'
+        ref: 'users'
+    },
+    date: {
+        type: Date,
+        default: Date.now
     },
     comments: [{
         owner: {
@@ -24,7 +28,7 @@ const postSchema = new mongoose.Schema({
             required: true,
             trim: true
         }
-    }]
+    }],
 })
 
 
